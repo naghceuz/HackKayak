@@ -7,48 +7,54 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Cassandra</title>
+     <link rel="stylesheet" href="/test/jquery-ui.css">
+     <script src="/test/jquery.js"></script>
+     <script src="/test/jquery-ui.js"></script>
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
     <link href="/stylesheets/grayscale.css" rel="stylesheet">
-    <link href="font-awesome/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/font-awesome/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-
-    <script src="/javascripts/jquery.js"></script>
-    <script src="/javascripts/jquery-ui.js"></script>
+    <style>
+            .ui-autocomplete-loading {
+            background: white url("") right center no-repeat;
+            }
+            #city { width: 25em; color: green }
+    </style>
     <script>
-        $(function() {
-        function log( message ) {
-        $( "<div>" ).text( message ).prependTo( "#log" );
-        $( "#log" ).scrollTop( 0 );
-        }
-        $( "#city" ).autocomplete({
-        source: function( request, response ) {
-        $.ajax({
-        url: "http://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
-        dataType: "json",
-        data: {
-        apikey: "wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
-        term: request.term
-        },
-        success: function( data ) {
-        response( data );
-        }
-        });
-        },
-        minLength: 3,
-        select: function( event, ui ) {
-        log( ui.item ?
-        "Selected: " + ui.item.label :
-        "Nothing selected, input was " + this.value);
-        },
-        open: function() {
-        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-        },
-        close: function() {
-        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-        }
-        });
-        });
+       $(function() {
+            function log( message ) {
+            $( "<div>" ).text( message ).prependTo( "#log" );
+            $( "#log" ).scrollTop( 0 );
+            }
+            $( "#city" ).autocomplete({
+            source: function( request, response ) {
+            $.ajax({
+            url: "http://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
+            dataType: "json",
+            data: {
+            apikey: "wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
+            term: request.term
+            },
+            success: function( data ) {
+            response( data );
+            }
+            });
+            },
+            minLength: 3,
+            select: function( event, ui ) {
+            log( ui.item ?
+            "Selected: " + ui.item.label :
+            "Nothing selected, input was " + this.value);
+            },
+            open: function() {
+            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+            });
+            });
     </script>
 
   </head>
@@ -112,45 +118,20 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                
-
+               <!-- enter the location and destination -->
+                <div class="ui-widget">
+                    <label for="city">Your city: </label>
+                    <input id="city">
+                    Powered by <a href="http://sandbox.amadeus.com">Amadeus Travel Innovation Sandbox</a>
+                    </div>
+                    <div class="ui-widget" style="margin-top:2em; font-family:Arial">
+                    Result:
+                    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+                </div>
             </div>
         </div>
     </section>
 
-
-    <div class="container">
-      <h2>Pick</h2>
-      <p></p>
-      <form role="form">
-<!--         <div class="form-group col-md-4">
- -->          
-          <label for="city">From</label>
-          <!-- <select class="form-control" id="city">
-            <option>Boston</option>
-            <option>Miami</option>
-            <option>New York</option>
-            <option>4</option>
-          </select> -->
-          <input id="city">
-          <br><br><br>
-          <label for="city">To</label>
-          <!-- <select class="form-control" id="city">
-            <option>Miami</option>
-            <option>Boston</option>
-            <option>New York</option>
-
-          </select> -->
-          <input id="city">
-
-        
-<!--         </div>
- -->      </form>
-    </div>
-
-
-    Result:
-<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>
 
 
 
@@ -193,11 +174,9 @@
     </section>
 
 
-    <script src="/javascripts/jquery.js"></script>
     <script src="/javascripts/bootstrap.js"></script>
     <script src="/javascripts/jquery.easing.min.js"></script>
-     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
-     <script src="/javascripts/grayscale.js"></script>
+    <script src="/javascripts/grayscale.js"></script>
 
 
  
