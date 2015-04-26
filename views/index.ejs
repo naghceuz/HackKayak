@@ -12,6 +12,45 @@
     <link href="font-awesome/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/jquery-ui.js"></script>
+    <script>
+        $(function() {
+        function log( message ) {
+        $( "<div>" ).text( message ).prependTo( "#log" );
+        $( "#log" ).scrollTop( 0 );
+        }
+        $( "#city" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+        url: "http://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
+        dataType: "json",
+        data: {
+        apikey: "wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
+        term: request.term
+        },
+        success: function( data ) {
+        response( data );
+        }
+        });
+        },
+        minLength: 3,
+        select: function( event, ui ) {
+        log( ui.item ?
+        "Selected: " + ui.item.label :
+        "Nothing selected, input was " + this.value);
+        },
+        open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        }
+        });
+        });
+    </script>
+
   </head>
  
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
@@ -83,27 +122,37 @@
       <h2>Pick</h2>
       <p></p>
       <form role="form">
-        <div class="form-group col-md-4">
-          <label for="sel1">From</label>
-          <select class="form-control" id="sel1">
+<!--         <div class="form-group col-md-4">
+ -->          
+          <label for="city">From</label>
+          <!-- <select class="form-control" id="city">
             <option>Boston</option>
             <option>Miami</option>
             <option>New York</option>
             <option>4</option>
-          </select>
-          <br>
-          <label for="sel1">To</label>
-          <select class="form-control" id="sel1">
+          </select> -->
+          <input id="city">
+          <br><br><br>
+          <label for="city">To</label>
+          <!-- <select class="form-control" id="city">
             <option>Miami</option>
             <option>Boston</option>
             <option>New York</option>
 
-          </select>
+          </select> -->
+          <input id="city">
 
         
-        </div>
-      </form>
+<!--         </div>
+ -->      </form>
     </div>
+
+
+    Result:
+<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+
+
 
 
     <!-- Download Section -->
