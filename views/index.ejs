@@ -19,7 +19,8 @@
             .ui-autocomplete-loading {
             background: white url("") right center no-repeat;
             }
-            #city { width: 25em; color: green }
+            #city { width: 10em; color: green }
+            #city2 { width: 10em; color: green }
     </style>
     <script>
        $(function() {
@@ -28,6 +29,33 @@
             $( "#log" ).scrollTop( 0 );
             }
             $( "#city" ).autocomplete({
+            source: function( request, response ) {
+            $.ajax({
+            url: "http://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
+            dataType: "json",
+            data: {
+            apikey: "wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
+            term: request.term
+            },
+            success: function( data ) {
+            response( data );
+            }
+            });
+            },
+            minLength: 3,
+            select: function( event, ui ) {
+            log( ui.item ?
+            "Selected: " + ui.item.label :
+            "Nothing selected, input was " + this.value);
+            },
+            open: function() {
+            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+            });
+            $( "#city2" ).autocomplete({
             source: function( request, response ) {
             $.ajax({
             url: "http://api.sandbox.amadeus.com/v1.2/airports/autocomplete?apikey=wZO1DtrgktePbj18z1RBj6kqbOP1vDiG",
@@ -120,14 +148,17 @@
                
                <!-- enter the location and destination -->
                 <div class="ui-widget">
-                    <label for="city">Your city: </label>
-                    <input id="city">
-                    Powered by <a href="http://sandbox.amadeus.com">Amadeus Travel Innovation Sandbox</a>
-                    </div>
-                    <div class="ui-widget" style="margin-top:2em; font-family:Arial">
-                    Result:
-                    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+                    <form name="search" method="post" action="/search">
+                    <label for="city">From: </label>
+                    <input id="city" name="departureCity"> 
+                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                    <label for="city2">To: </label>
+                    <input id="city2" name="arrivalCity">
+                    <br>
+                    <input type="submit" value="Search" class="btn btn-success btn-sm"/>
+                    </form>
                 </div>
+                    
             </div>
         </div>
     </section>
@@ -155,20 +186,6 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>Contact US</h2>
-               <!--  <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
-                <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
-                </p>
-                <ul class="list-inline banner-social-buttons">
-                    <li>
-                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-                    </li>
-                </ul> -->
             </div>
         </div>
     </section>
