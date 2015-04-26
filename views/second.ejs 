@@ -5,11 +5,11 @@
 			<meta charset="utf-8">
 			<title>jQuery UI Autocomplete - Remote JSONP datasource</title>
 			<link rel="stylesheet" href="/test/jquery-ui.css">
-			<script src="/test/jquery.js"></script>
+			<script src="/test/jquery-1.10.2.js"></script>
 			<script src="/test/jquery-ui.js"></script>
 			<style>
 			.ui-autocomplete-loading {
-			background: white url("") right center no-repeat;
+			background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
 			}
 			#city { width: 25em; }
 			</style>
@@ -63,3 +63,4 @@ Result:
 </div>
 </body>
 </html>
+
